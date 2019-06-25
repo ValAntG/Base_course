@@ -9,7 +9,7 @@ loop do
   price = gets.chomp.to_i
   print 'Введите количество товара '
   number = gets.chomp.to_i
-  shop.merge!( { type => { price => number } } )
+  shop.merge!(type => { price => number })
 end
 
 puts shop
