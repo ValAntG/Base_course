@@ -1,2 +1,2 @@
-array = 10.step(100, 5).to_a
-puts array
+p 10.step(100, 5).to_a
+

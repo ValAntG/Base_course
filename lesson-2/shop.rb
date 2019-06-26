@@ -16,7 +16,10 @@ puts shop
 
 shop.each_pair do |type, value|
   print "Товар #{type} стоимостью "
-  value.each_pair { |price, number| puts "#{cost += price * number} у.е." }
+  value.each_pair do |price, number|
+    puts "#{price * number} у.е."
+    cost += price * number
+  end
 end
 
 puts "Итоговая сумма всех покупок в корзине #{cost} у.е."
