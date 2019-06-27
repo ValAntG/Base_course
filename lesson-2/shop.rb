@@ -1,4 +1,4 @@
-cost = 0
+total_price = 0
 shop = {}
 
 loop do
@@ -16,9 +16,10 @@ puts shop
 
 shop.each do |type, value|
   value.each do |price, number|
-    p "Товар #{type} стоимостью #{price * number} у.е."
-    cost += price * number
+    cost = price * number
+    p "Товар #{type} стоимостью #{cost} у.е."
+    total_price += cost
   end
 end
 
-p "Итоговая сумма всех покупок в корзине #{cost} у.е."
+p "Итоговая сумма всех покупок в корзине #{total_price} у.е."
