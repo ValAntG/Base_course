@@ -1,10 +1,12 @@
 class Train
-  attr_accessor :train_name
-  def initialize (train_name, train_type, train_cars_number)
+  attr_reader :train_name, :train_type, :train_rout
+
+  def initialize(train_name, train_type, train_cars_number)
     @train_name = train_name
     @train_type = train_type
     @train_cars_number = train_cars_number.to_i
     @train_speed = 0
+    @train_rout = 0
   end
 
   def train_speed
@@ -46,5 +48,12 @@ class Train
       p 'Поезд в движении, отцепить вагон нельзя'
     end
   end
-end
 
+  def train_route(route, station_train = route.route_stations.first)
+    @train_rout = route
+
+    # ДОБАВИТЬ ДОБАВЛЕНИЕ ПЛОЕЗДА
+    print "Добавлен маршрут следования к поезду #{train_name}, маршрут следования: "
+    route.route_stations.each{|i| print i.station_name + ', '}
+  end
+end
