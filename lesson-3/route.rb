@@ -15,8 +15,8 @@ class Route
 
   def route_list
     p "Начальная станция - #{route_stations.first.station_name}"
-    print 'Промежуточные станции: '
-    route_stations.slice(1...-1).each{|i| print i.station_name + ', '}
-    p "Конечная станция - #{route_stations.last.station_name}"
+    p 'Промежуточные станции: '
+    route_stations.slice(1...-1).each { |i| p i.station_name + ', ' }
+    p "Конечная станция - #{route_stations.last.station_name} "
   end
 end
