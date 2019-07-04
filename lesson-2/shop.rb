@@ -9,17 +9,15 @@ loop do
   price = gets.chomp.to_i
   print 'Введите количество товара '
   number = gets.chomp.to_i
-  shop.merge!(type => { price => number })
+  shop.merge!(type => { price: price, number: number })
 end
 
 puts shop
 
 shop.each do |type, value|
-  value.each do |price, number|
-    cost = price * number
-    p "Товар #{type} стоимостью #{cost} у.е."
-    total_price += cost
-  end
+  cost = value[:price] * value[:number]
+  p "Товар #{type} стоимостью #{cost} у.е."
+  total_price += cost
 end
 
 p "Итоговая сумма всех покупок в корзине #{total_price} у.е."
