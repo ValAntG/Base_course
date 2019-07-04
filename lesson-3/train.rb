@@ -7,7 +7,6 @@ class Train
     @train_cars_number = train_cars_number.to_i
     @train_speed = 0
     @train_route = nil
-    @number_station = 0
     @current_station = nil
   end
 
@@ -21,6 +20,7 @@ class Train
 
   def speed_slow
     return p 'Поезд остановлен, скорость уменьшить нельзя' if @train_speed.zero?
+
     @train_speed -= 20
   end
 
@@ -30,12 +30,14 @@ class Train
 
   def cars_hook
     return @train_cars_number += 1 if @train_speed.zero?
+
     p 'Поезд в движении, прицепить вагон нельзя'
   end
 
   def cars_unhook
     return p 'Вагонов больше нет' if @train_speed.zero? && @train_cars_number.zero?
     return @train_cars_number -= 1 if @train_speed.zero?
+
     p 'Поезд в движении, отцепить вагон нельзя'
   end
 
@@ -44,26 +46,22 @@ class Train
     station_start.train_arrival(self)
     @current_station = station_start
     print "Добавлен маршрут следования к поезду #{train_name}, маршрут следования: "
-    route.route_stations.each { |station| print station.station_name + ', ' }
-    puts
+    intermed_station = route.route_stations.map(&:station_name)
+    p intermed_station.join(', ')
   end
 
   def route_next
-    station_of_route(0).train_departure(self)
-    if @train_route.route_stations[0...-1].include?(station_of_route(0))
-      @current_station = station_of_route(+1)
-      station_of_route(0).train_arrival(self)
-    end
+    @current_station.train_departure(self)
+    return unless @train_route.route_stations[0...-1].include?(@current_station)
+
+    @current_station = station_of_route(+1)
+    @current_station.train_arrival(self)
   end
 
   def route_info
-    p "Поезд №#{train_name} находится на станции #{station_of_route(0).station_name}"
-    if station_of_route(0) != @train_route.route_stations.first
-      p "У поезд №#{train_name} предыдущая станция #{station_of_route(-1).station_name}"
-    end
-    if station_of_route(0) != @train_route.route_stations.last
-      p "У поезда №#{train_name} следующая станция #{station_of_route(+1).station_name}"
-    end
+    p "Поезд № #{train_name} находится на станции #{@current_station.station_name}"
+    route_next_station
+    route_prev_station
   end
 
   private
@@ -71,5 +69,17 @@ class Train
   def station_of_route(position_change)
     station_index = @train_route.route_stations.index(@current_station) + position_change
     @train_route.route_stations[station_index]
+  end
+
+  def route_next_station
+    return if @current_station == @train_route.route_stations.last
+
+    p "У поезда № #{train_name} следующая станция #{station_of_route(+1).station_name}"
+  end
+
+  def route_prev_station
+    return if @current_station == @train_route.route_stations.first
+
+    p "У поезда № #{train_name} предыдущая станция #{station_of_route(-1).station_name}"
   end
 end

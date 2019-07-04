@@ -38,7 +38,7 @@ class Station
 
   def train_by_type(type)
     print "Список #{type} поездов на станции #{station_name}: "
-    @station_trains.each { |train| print train.train_name if train.train_type == type }
+    @station_trains.each { |train| print "#{train.train_name}, " if train.train_type == type }
     p "    Всего #{type} поездов на станции: #{@station_trains.select { |train| train.train_type == type }.size}"
   end
 end

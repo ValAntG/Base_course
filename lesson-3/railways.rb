@@ -29,10 +29,11 @@ train60.route_add(route60, station2)
 train63.route_add(route63, station1)
 train64.route_add(route64, station6)
 
+p '#   Cписок станций поезда №63'
 route63.list_station
-train63.route_info
-train63.route_next
-station2.train_departure(train63)
+
+p '#   Отправление поезда со станции, увеличивание скорости и потом уменьшение'
+station1.train_departure(train63)
 train63.speed_up
 train63.speed
 train63.speed_up
@@ -42,6 +43,9 @@ train63.speed
 train63.speed_slow
 train63.speed
 train63.speed_slow
+
+p '#   Прибытие поезда и отцепка и прицепка вагонов'
+station2.train_arrival(train63)
 train63.cars_number
 train63.cars_unhook
 train63.cars_number
@@ -49,10 +53,14 @@ train63.cars_unhook
 train63.cars_number
 train63.cars_hook
 train63.cars_number
-station3.train_arrival(train63)
-train63.route_next
-train63.route_next
-train63.route_next
-train63.route_next
-train63.route_next
+
+p '#   Информация о поездах по станции Полтава'
 station2.list_by_type
+
+p '#   Перемещение по маршруту поезда №63'
+train63.route_next
+train63.route_next
+train63.route_next
+train63.route_next
+train63.route_next
+train63.route_info
