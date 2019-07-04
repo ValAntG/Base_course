@@ -15,18 +15,14 @@ class Station
     end
   end
 
-  def station_list_train
+  def list_train
     p "Список поездов на станции #{station_name}:"
     @station_trains.each { |train| p train.train_name }
   end
 
-  def station_list_by_type
-    p "Список грузовых поездов на станции #{station_name}: "
-    @station_trains.each { |i| p i.train_name if i.train_type == 'cargo' }
-    p "Всего грузовых поездов на станции : #{@station_trains.select { |i| i.train_type == 'cargo' }.size}"
-    p "Список пассажирских поездов на станции #{station_name}: "
-    @station_trains.each { |i| p i.train_name if i.train_type == 'pass' }
-    p "Всего пассажирских поездов на станции : #{@station_trains.select { |i| i.train_type == 'pass' }.size}"
+  def list_by_type
+    train_by_type('cargo')
+    train_by_type('pass')
   end
 
   def train_departure(train)
@@ -36,5 +32,13 @@ class Station
     else
       p "Поезда № #{train.train_name} нет на станции #{station_name}"
     end
+  end
+
+  private
+
+  def train_by_type(type)
+    print "Список #{type} поездов на станции #{station_name}: "
+    @station_trains.each { |train| print train.train_name if train.train_type == type }
+    p "    Всего #{type} поездов на станции: #{@station_trains.select { |train| train.train_type == type }.size}"
   end
 end
