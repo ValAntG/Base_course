@@ -58,9 +58,11 @@ p '#   Информация о поездах по станции Полтава
 station2.list_by_type
 
 p '#   Перемещение по маршруту поезда №63'
-train63.route_next
-train63.route_next
-train63.route_next
-train63.route_next
+train63.route_info
 train63.route_next
 train63.route_info
+train63.route_next
+train63.route_info
+train63.route_next
+train63.route_next
+train63.route_next

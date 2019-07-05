@@ -11,7 +11,7 @@ class Train
   end
 
   def speed
-    p "Скорость поезда №#{train_name} #{@train_speed} км/ч"
+    p "Скорость поезда №#{@train_name} #{@train_speed} км/ч"
   end
 
   def speed_up
@@ -25,7 +25,7 @@ class Train
   end
 
   def cars_number
-    p "В поезде №#{train_name} #{@train_cars_number} вагонов"
+    p "В поезде №#{@train_name} #{@train_cars_number} вагонов"
   end
 
   def cars_hook
@@ -43,34 +43,29 @@ class Train
 
   def route_add(route, station_start = route.route_stations.first)
     @train_route = route
-    station_start.train_arrival(self)
     @current_station = station_start
-    print "Добавлен маршрут следования к поезду #{train_name}, маршрут следования: "
-    intermed_station = route.route_stations.map(&:station_name)
-    p intermed_station.join(', ')
+    @current_station.train_arrival(self)
+    route_add_message
   end
 
   def route_next
     @current_station.train_departure(self)
-    return unless @train_route.route_stations[0...-1].include?(@current_station)
+    return unless route_next_station
 
     @current_station = route_next_station
     @current_station.train_arrival(self)
   end
 
   def route_info
-    p "Поезд № #{train_name} находится на станции #{@current_station.station_name}"
-    return if @current_station == @train_route.route_stations.last
-
-    p "У поезда № #{train_name} следующая станция #{route_next_station.station_name}"
-    return if @current_station == @train_route.route_stations.first
-
-    p "У поезда № #{train_name} предыдущая станция #{route_prev_station.station_name}"
+    route_info_message(@current_station, 'текущая')
+    route_info_message(route_next_station, 'следующая') if route_next_station
+    route_info_message(route_prev_station, 'предыдущая') if route_prev_station
   end
 
   private
 
   def station_of_route(position_change)
+    # binding.pry
     station_index = @train_route.route_stations.index(@current_station) + position_change
     @train_route.route_stations[station_index]
   end
@@ -81,5 +76,14 @@ class Train
 
   def route_prev_station
     station_of_route(-1)
+  end
+
+  def route_add_message
+    print "Добавлен маршрут следования к поезду #{@train_name}, маршрут следования: "
+    p @train_route.route_stations.map(&:station_name).join(', ')
+  end
+
+  def route_info_message(station, state)
+    p "У поезда № #{@train_name} #{state} станция #{station.station_name}"
   end
 end
