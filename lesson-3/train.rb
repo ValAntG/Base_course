@@ -54,14 +54,18 @@ class Train
     @current_station.train_departure(self)
     return unless @train_route.route_stations[0...-1].include?(@current_station)
 
-    @current_station = station_of_route(+1)
+    @current_station = route_next_station
     @current_station.train_arrival(self)
   end
 
   def route_info
     p "Поезд № #{train_name} находится на станции #{@current_station.station_name}"
-    route_next_station
-    route_prev_station
+    return if @current_station == @train_route.route_stations.last
+
+    p "У поезда № #{train_name} следующая станция #{route_next_station.station_name}"
+    return if @current_station == @train_route.route_stations.first
+
+    p "У поезда № #{train_name} предыдущая станция #{route_prev_station.station_name}"
   end
 
   private
@@ -72,14 +76,10 @@ class Train
   end
 
   def route_next_station
-    return if @current_station == @train_route.route_stations.last
-
-    p "У поезда № #{train_name} следующая станция #{station_of_route(+1).station_name}"
+    station_of_route(+1)
   end
 
   def route_prev_station
-    return if @current_station == @train_route.route_stations.first
-
-    p "У поезда № #{train_name} предыдущая станция #{station_of_route(-1).station_name}"
+    station_of_route(-1)
   end
 end
