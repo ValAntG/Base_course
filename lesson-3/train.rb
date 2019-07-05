@@ -43,17 +43,13 @@ class Train
 
   def route_add(route, station_start = route.route_stations.first)
     @train_route = route
-    @current_station = station_start
-    @current_station.train_arrival(self)
+    arrival(station_start)
     route_add_message
   end
 
   def route_next
     @current_station.train_departure(self)
-    return unless route_next_station
-
-    @current_station = route_next_station
-    @current_station.train_arrival(self)
+    arrival(route_next_station) if route_next_station
   end
 
   def route_info
@@ -65,7 +61,6 @@ class Train
   private
 
   def station_of_route(position_change)
-    # binding.pry
     station_index = @train_route.route_stations.index(@current_station) + position_change
     @train_route.route_stations[station_index]
   end
@@ -85,5 +80,10 @@ class Train
 
   def route_info_message(station, state)
     p "У поезда № #{@train_name} #{state} станция #{station.station_name}"
+  end
+
+  def arrival(station)
+    @current_station = station
+    @current_station.train_arrival(self)
   end
 end
