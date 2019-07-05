@@ -5,7 +5,7 @@ class Route
     @route_stations = stations
   end
 
-  def add_station(station, number = -1)
+  def add_station(station, number = -2)
     @route_stations.insert(number, station)
   end
 
