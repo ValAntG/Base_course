@@ -74,8 +74,8 @@ class Train
   end
 
   def route_add_message
-    print "Добавлен маршрут следования к поезду #{@train_name}, маршрут следования: "
-    p @train_route.route_stations.map(&:station_name).join(', ')
+    p "Добавлен маршрут следования к поезду #{@train_name}, маршрут следования: " +
+      @train_route.route_stations.map(&:station_name).join(', ')
   end
 
   def route_info_message(station, state)
