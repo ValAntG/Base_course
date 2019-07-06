@@ -29,8 +29,7 @@ describe Route do
     it 'list_station' do
       expect do
         route.list_station
-      end.to output("Начальная станция - Kharkov; Промежуточные станции: Poltava, Mirgorod, /
-      Конечная станция - Kiev ;").to_stdout
+      end.to output("Начальная станция - Kharkov; Промежуточные станции: Poltava, Mirgorod, Конечная станция - Kiev ;\n").to_stdout
     end
   end
 end

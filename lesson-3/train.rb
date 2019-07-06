@@ -14,29 +14,29 @@ class Train
     p "Скорость поезда №#{@train_name} #{@train_speed} км/ч"
   end
 
-  def speed_up
-    @train_speed += 20
+  def speed_up(speed = 20)
+    @train_speed += speed
   end
 
-  def speed_slow
+  def speed_slow(speed = 20)
     return p 'Поезд остановлен, скорость уменьшить нельзя' if @train_speed.zero?
 
-    @train_speed -= 20
+    @train_speed -= speed
   end
 
   def cars_number
     p "В поезде №#{@train_name} #{@train_cars_number} вагонов"
   end
 
-  def cars_hook
-    return @train_cars_number += 1 if @train_speed.zero?
+  def cars_hook(quantity = 1)
+    return @train_cars_number += quantity if @train_speed.zero?
 
     p 'Поезд в движении, прицепить вагон нельзя'
   end
 
-  def cars_unhook
+  def cars_unhook(quantity = 1)
     return p 'Вагонов больше нет' if @train_speed.zero? && @train_cars_number.zero?
-    return @train_cars_number -= 1 if @train_speed.zero?
+    return @train_cars_number -= quantity if @train_speed.zero?
 
     p 'Поезд в движении, отцепить вагон нельзя'
   end
