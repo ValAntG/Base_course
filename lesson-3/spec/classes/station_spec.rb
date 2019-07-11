@@ -1,9 +1,9 @@
 require_relative '../spec_helper'
 
 describe Station do
-  let(:train63) { Train.new(63, 'pass', 1) }
-  let(:train64) { Train.new(64, 'pass', 18) }
-  let(:train60) { Train.new(60, 'pass', 16) }
+  let(:train63) { Train.new(63) }
+  let(:train64) { Train.new(64) }
+  let(:train60) { Train.new(60) }
   let(:station) { Station.new('Kharkov') }
 
   describe '#train_arrival' do

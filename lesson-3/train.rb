@@ -1,9 +1,10 @@
 class Train
-  attr_reader :train_name, :train_type
+  # attr_accessor
+  attr_reader :train_name, :train_type, :current_station
 
   def initialize(train_name)
     @train_name = train_name
-    @train_type = train_type
+    @train_type = @train_type
     @train_carriages = []
     @train_speed = 0
     @train_route = nil
@@ -58,8 +59,13 @@ class Train
     route_info_message(route_prev_station, 'предыдущая') if route_prev_station
   end
 
-  # protected
-  public
+  def arrival(station)
+    @current_station = station
+    @current_station.train_arrival(self)
+  end
+
+  protected
+  # Методы не используются в других классах, но используются в подклассах
 
   def station_of_route(position_change)
     station_index = @train_route.route_stations.index(@current_station) + position_change
@@ -81,10 +87,5 @@ class Train
 
   def route_info_message(station, state)
     p "У поезда № #{@train_name} #{state} станция #{station.station_name}"
-  end
-
-  def arrival(station)
-    @current_station = station
-    @current_station.train_arrival(self)
   end
 end

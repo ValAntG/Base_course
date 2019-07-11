@@ -35,6 +35,7 @@ class Station
   end
 
   private
+  # Методы не используются в других классах и подклассах
 
   def train_by_type(type)
     print "Список #{type} поездов на станции #{@station_name}: "
