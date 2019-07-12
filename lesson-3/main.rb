@@ -34,14 +34,15 @@ def train_new(stations, trains)
   print 'Создание поезда. Введите номер поезда: '
   train_name = gets.chomp
   p 'Выберите тип поезда:'
-  p '1 - пассажирский поезд'
-  p '2 - грузовой поезд'
+  p '0 - пассажирский поезд (по умолчанию)'
+  p '1 - грузовой поезд'
+
   train_type_number = gets.chomp.to_i
   case train_type_number
-  when 1
+  when 0
     train_type = 'пассажирский'
     train = TrainPass.new(train_name)
-  when 2
+  when 1
     train_type = 'грузовой'
     train = TrainCargo.new(train_name)
   end
@@ -51,9 +52,10 @@ def train_new(stations, trains)
 end
 
 def station_add(stations, train)
-  p 'Выберите станцию на которой размещается поезд: '
+  p "Выберите станцию на которой размещается поезд (по умолчанию - #{stations[0].station_name}): "
   stations.each_with_index { |station, number| p "#{number} - #{station.station_name}" }
   station_number = gets.chomp.to_i
+  # binding.pry
   train.arrival(stations[station_number]) if station_number <= stations.size - 1
 end
 
@@ -81,6 +83,17 @@ def train_add_station(stations, trains)
   station_add(stations, train)
 end
 
+def train_info(trains)
+  p 'Список поездов:'
+  trains.each do |train|
+    type = 'пассажирский' if train.train_type == 'pass'
+    type = 'грузовй' if train.train_type == 'cargo'
+    print "Поезд #{type} № #{train.train_name}   "
+    print "с кол-вом вагонов #{train.train_carriages.size}   "
+    p "находится на станции #{train.current_station.station_name}"
+  end
+end
+
 loop do
   input_info
   input_operation_number = gets.chomp.to_i
@@ -99,6 +112,8 @@ loop do
     stations.each(&:list_train)
   when 7
     stations.each(&:list_by_type)
+  when 8
+    train_info(trains)
   when 0
     break
   end

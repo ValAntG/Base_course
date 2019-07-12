@@ -64,6 +64,7 @@ class Train
   end
 
   protected
+
   # Методы не используются в других классах, но используются в подклассах
 
   def station_of_route(position_change)
