@@ -15,7 +15,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 #
 require 'pry'
-require './railways.rb'
+require './main.rb'
 Dir[File.join('../lesson-3/*.rb')].each { |file| require file }
 # binding.pry
 RSpec.configure do |config|
