@@ -36,6 +36,8 @@ class Station
 
   private
 
+  # Методы не используются в других классах и подклассах
+
   def train_by_type(type)
     print "Список #{type} поездов на станции #{@station_name}: "
     @station_trains.each { |train| print "#{train.train_name}, " if train.train_type == type }

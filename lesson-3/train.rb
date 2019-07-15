@@ -1,10 +1,10 @@
 class Train
-  attr_reader :train_name, :train_type
+  # attr_accessor
+  attr_reader :train_name, :train_type, :current_station, :train_carriages
 
-  def initialize(train_name, train_type, train_cars_number)
+  def initialize(train_name)
     @train_name = train_name
-    @train_type = train_type
-    @train_cars_number = train_cars_number.to_i
+    @train_carriages = []
     @train_speed = 0
     @train_route = nil
     @current_station = nil
@@ -14,29 +14,29 @@ class Train
     p "Скорость поезда №#{@train_name} #{@train_speed} км/ч"
   end
 
-  def speed_up
-    @train_speed += 20
+  def speed_up(speed = 20)
+    @train_speed += speed
   end
 
-  def speed_slow
+  def speed_slow(speed = 20)
     return p 'Поезд остановлен, скорость уменьшить нельзя' if @train_speed.zero?
 
-    @train_speed -= 20
+    @train_speed -= speed
   end
 
-  def cars_number
-    p "В поезде №#{@train_name} #{@train_cars_number} вагонов"
+  def carriages_number
+    p "В поезде №#{@train_name} #{@train_carriages.size} вагонов"
   end
 
-  def cars_hook
-    return @train_cars_number += 1 if @train_speed.zero?
+  def carriages_hook
+    return @train_carriages.push(Carriage.new(@train_type)) if @train_speed.zero?
 
     p 'Поезд в движении, прицепить вагон нельзя'
   end
 
-  def cars_unhook
-    return p 'Вагонов больше нет' if @train_speed.zero? && @train_cars_number.zero?
-    return @train_cars_number -= 1 if @train_speed.zero?
+  def carriages_unhook
+    return p 'Вагонов больше нет' if @train_speed.zero? && @train_carriages.size.zero?
+    return @train_carriages.pop if @train_speed.zero?
 
     p 'Поезд в движении, отцепить вагон нельзя'
   end
@@ -58,7 +58,14 @@ class Train
     route_info_message(route_prev_station, 'предыдущая') if route_prev_station
   end
 
-  private
+  def arrival(station)
+    @current_station = station
+    @current_station.train_arrival(self)
+  end
+
+  protected
+
+  # Методы не используются в других классах, но используются в подклассах
 
   def station_of_route(position_change)
     station_index = @train_route.route_stations.index(@current_station) + position_change
@@ -80,10 +87,5 @@ class Train
 
   def route_info_message(station, state)
     p "У поезда № #{@train_name} #{state} станция #{station.station_name}"
-  end
-
-  def arrival(station)
-    @current_station = station
-    @current_station.train_arrival(self)
   end
 end
