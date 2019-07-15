@@ -39,54 +39,6 @@ describe Train do
     end
   end
 
-  # describe '#carriages_hook' do
-  #   it 'must attach a standard number of carriages' do
-  #     expect { train63.carriages_hook }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .from(1).to(2)
-  #   end
-  #
-  #   it 'must attach a variable number of carriages' do
-  #     expect { train63.carriages_hook(10) }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .from(1).to(11)
-  #   end
-  #
-  #   it 'wagons should not be attached when the train is moving' do
-  #     train63.speed_up(30)
-  #     expect { train63.carriages_hook(10) }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .by(0)
-  #   end
-  # end
-
-  # describe '#carriages_unhook' do
-  #   it 'must unhook the standard number of carriages' do
-  #     expect { train63.carriages_unhook }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .from(1).to(0)
-  #   end
-  #
-  #   it 'should not detach the standard number of carriages when the number of carriages is already 0' do
-  #     train63.carriages_unhook
-  #     expect { train63.carriages_unhook }.to change { train63.instance_variable_get(:@train_carriages_number) }.by(0)
-  #   end
-  #
-  #   it 'must unhook a variable number of carriages' do
-  #     train63.carriages_hook(10)
-  #     expect { train63.carriages_unhook(11) }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .from(11).to(0)
-  #   end
-  #
-  #   it 'should not disengage a variable number of carriages when the number of carriages is already 0' do
-  #     train63.carriages_unhook
-  #     expect { train63.carriages_unhook(2) }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .by(0)
-  #   end
-  #
-  #   it 'the car should not be uncoupled when the train is in motion' do
-  #     train63.speed_up(30)
-  #     expect { train63.carriages_unhook(1) }.to change { train63.instance_variable_get(:@train_carriages_number) }
-  #       .by(0)
-  #   end
-  # end
-
   describe '#route_add' do
     it 'should add a route to the train' do
       expect { train63.route_add(route) }.to change { train63.instance_variable_get(:@train_route) }.from(nil).to(route)

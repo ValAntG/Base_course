@@ -55,7 +55,6 @@ def station_add(stations, train)
   p "Выберите станцию на которой размещается поезд (по умолчанию - #{stations[0].station_name}): "
   stations.each_with_index { |station, number| p "#{number} - #{station.station_name}" }
   station_number = gets.chomp.to_i
-  # binding.pry
   train.arrival(stations[station_number]) if station_number <= stations.size - 1
 end
 
