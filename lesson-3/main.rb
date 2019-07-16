@@ -1,4 +1,6 @@
 require 'pry'
+require './company_name.rb'
+require './instance_counter.rb'
 require './station.rb'
 require './route.rb'
 require './train.rb'
@@ -20,6 +22,7 @@ def input_info
   p '   5 - поместить поезд на станцию'
   p '   6 - показать список станций и поездов'
   p '   7 - показать список поездов по типу на станциях'
+  p '   8 - показать информацию по поездам'
   p '   0 - для выхода'
 end
 

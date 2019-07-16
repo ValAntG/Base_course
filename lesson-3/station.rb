@@ -1,9 +1,12 @@
 class Station
+  include InstanceCounter
   attr_reader :station_name
 
   def initialize(station_name)
     @station_name = station_name
     @station_trains = []
+    # self.register_instance
+    register_instance
   end
 
   def train_arrival(train)

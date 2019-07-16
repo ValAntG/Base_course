@@ -1,6 +1,14 @@
 class Train
-  # attr_accessor
   attr_reader :train_name, :train_type, :current_station, :train_carriages
+
+  include CompanyName
+  include InstanceCounter
+
+  def self.find(find_train_name)
+    object = nil
+    items.each { |train| object = train if train.train_name == find_train_name }
+    object
+  end
 
   def initialize(train_name)
     @train_name = train_name
@@ -8,6 +16,8 @@ class Train
     @train_speed = 0
     @train_route = nil
     @current_station = nil
+    # self.register_instance
+    register_instance
   end
 
   def speed
