@@ -5,9 +5,11 @@ module InstanceCounter
   end
 
   module InstanceMethods
+    protected
+
     def register_instance
-      self.class.items ||= []
-      self.class.items << self
+      self.class.items ||= {}
+      self.class.items.merge!("#{name}": self)
     end
   end
 
