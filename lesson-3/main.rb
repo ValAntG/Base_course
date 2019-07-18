@@ -85,7 +85,7 @@ end
 def speed
   train = input_train
   print 'Введите скорость на которую хотите изменить скорость (по умолчанию - 20 км/ч): '
-  speed = gets.chomp.to_i ||= 20
+  speed = gets.chomp.to_i || 20
   p 'Выберите операцию:'
   p '1 - увеличить скорость'
   p '2 - уменьшить скорость'
@@ -109,7 +109,7 @@ def train_add_station
 end
 
 def train_info_by_type(type)
-  trains = type.items ||= {}
+  trains = type.items || {}
   trains.each_value do |train|
     p "№#{train.name} с кол-вом вагонов #{train.carriages_number} находится на станции #{train.current_station.name}"
   end
