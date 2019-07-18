@@ -1,17 +1,26 @@
 class Train
-  # attr_accessor
-  attr_reader :train_name, :train_type, :current_station, :train_carriages
+  attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
+
+  include CompanyName
+  include InstanceCounter
+
+  def self.find(find_train_name)
+    object = nil
+    items.each { |train| object = train if train.name == find_train_name }
+    object
+  end
 
   def initialize(train_name)
-    @train_name = train_name
+    @name = train_name
     @train_carriages = []
     @train_speed = 0
     @train_route = nil
     @current_station = nil
+    register_instance
   end
 
   def speed
-    p "Скорость поезда №#{@train_name} #{@train_speed} км/ч"
+    p "Скорость поезда №#{@name} #{@train_speed} км/ч"
   end
 
   def speed_up(speed = 20)
@@ -25,7 +34,7 @@ class Train
   end
 
   def carriages_number
-    p "В поезде №#{@train_name} #{@train_carriages.size} вагонов"
+    @train_carriages.size
   end
 
   def carriages_hook
@@ -81,11 +90,11 @@ class Train
   end
 
   def route_add_message
-    p "Добавлен маршрут следования к поезду #{@train_name}, маршрут следования: " +
-      @train_route.route_stations.map(&:station_name).join(', ')
+    p "Добавлен маршрут следования к поезду #{@name}, маршрут следования: " +
+      @train_route.route_stations.map(&:name).join(', ')
   end
 
   def route_info_message(station, state)
-    p "У поезда № #{@train_name} #{state} станция #{station.station_name}"
+    p "У поезда № #{@name} #{state} станция #{station.station_name}"
   end
 end

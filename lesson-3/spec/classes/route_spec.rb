@@ -23,14 +23,4 @@ describe Route do
       expect { route.del_station(station3) }.to change { route.route_stations[2] }.from(station3).to(station5)
     end
   end
-
-  describe '#list_station' do
-    it 'the station list should be displayed' do
-      expect do
-        route.list_station
-      end
-        .to output("Начальная станция - Kharkov; Промежуточные станции: Poltava, Mirgorod, Конечная станция - Kiev ;\n")
-        .to_stdout
-    end
-  end
 end
