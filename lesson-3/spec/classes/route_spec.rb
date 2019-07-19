@@ -6,7 +6,7 @@ describe Route do
   let(:station3) { Station.new('Mirgorod') }
   let(:station4) { Station.new('Darnica') }
   let(:station5) { Station.new('Kiev') }
-  let(:route) { Route.new(station1, station2, station3, station5) }
+  let(:route) { Route.new('Stolishniy', [station1, station2, station3, station5]) }
 
   describe '#add_station' do
     it 'should add a station to the route' do

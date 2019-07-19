@@ -19,18 +19,13 @@ class Train
     register_instance
   end
 
-  def speed
-    p "Скорость поезда №#{@name} #{@train_speed} км/ч"
-  end
-
-  def speed_up(speed = 20)
+  def speed_up(speed)
     @train_speed += speed
   end
 
-  def speed_slow(speed = 20)
-    return p 'Поезд остановлен, скорость уменьшить нельзя' if @train_speed.zero?
-
+  def speed_slow(speed)
     @train_speed -= speed
+    @train_speed = 0 if @train_speed.negative?
   end
 
   def carriages_number
