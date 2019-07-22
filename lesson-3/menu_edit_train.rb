@@ -8,8 +8,8 @@ end
 def train_input
   trains = Hash(TrainCargo.items).merge(Hash(TrainPass.items))
   puts "Выберите поезд #{trains.keys}"
-  train_number = gets.chomp.to_sym until trains.key?(train_number)
-  trains[train_number]
+  train_name = gets.chomp.to_sym until trains.key?(train_name)
+  trains[train_name]
 end
 
 def train_editor
@@ -27,6 +27,23 @@ def train_editor
   train_editor_operation(train)
 end
 
+def train_edit_speed_up(train)
+  print 'Введите скорость на которую хотите изменить скорость: '
+  speed = gets.chomp.to_i
+  train.speed_up(speed)
+  p "Поезд № #{train.name} увеличил скорость на #{speed} км/ч"
+end
+
+def train_edit_speed_slow(train)
+  print 'Введите скорость на которую хотите изменить скорость: '
+  speed = gets.chomp.to_i
+  train.speed_up(speed)
+  return p 'Поезд остановлен, скорость уменьшить нельзя' if train.train_speed.zero?
+
+  train.speed_slow(speed)
+  p "Поезд № #{train.name} уменьшил скорость на #{speed} км/ч"
+end
+
 def train_editor_operation(train)
   operation = gets.chomp.to_i
   case operation
@@ -39,17 +56,9 @@ def train_editor_operation(train)
   when 3
     p "В поезде № #{train.name} количество вагонов составляет - #{train.carriages_number}"
   when 4
-    print 'Введите скорость на которую хотите изменить скорость: '
-    speed = gets.chomp.to_i
-    train.speed_up(speed)
-    p "Поезд № #{train.name} увеличил скорость на #{speed} км/ч"
+    train_edit_speed_up(train)
   when 5
-    print 'Введите скорость на которую хотите изменить скорость: '
-    speed = gets.chomp.to_i
-    return p 'Поезд остановлен, скорость уменьшить нельзя' if train.train_speed.zero?
-
-    train.speed_slow(speed)
-    p "Поезд № #{train.name} уменьшил скорость на #{speed} км/ч"
+    train_edit_speed_slow(train)
   when 6
     p "Поезд № #{train.name} движется со скоростью - #{train.train_speed}"
   when 7

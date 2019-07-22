@@ -1,25 +1,34 @@
 def station_new
-  print 'Создание станции. Введите имя станции: '
-  station_name = gets.chomp
-
-  Station.new(station_name)
-  p "Создана станция #{station_name}"
+  begin
+    print 'Создание станции. Введите имя станции, начиная с Большой буквы, минимальное кол-во символов - 3: '
+    name = gets.chomp
+    Station.new(name)
+  rescue NameError
+    p 'Неправильно введено имя станции!!!'
+    retry
+  end
+  p "Создана станция #{name}"
 end
 
 def train_new
-  print 'Создание поезда. Введите номер поезда: '
-  train_name = gets.chomp.to_sym
-  p 'Выберите тип поезда:'
+  p 'Создание поезда. Выберите тип поезда:'
   p '1 - пассажирский поезд'
   p '2 - грузовой поезд'
   train_type_number = gets.chomp.to_i until [1, 2].include?(train_type_number)
-  case train_type_number
-  when 1
-    train_type = 'пассажирский'
-    train = TrainPass.new(train_name)
-  when 2
-    train_type = 'грузовой'
-    train = TrainCargo.new(train_name)
+  begin
+    print 'Введите номер поезда, согласно шаблону ХХХ-ХХ, где Х - любая буква или цифра: '
+    train_name = gets.chomp.to_sym
+    case train_type_number
+    when 1
+      train_type = 'пассажирский'
+      train = TrainPass.new(train_name)
+    when 2
+      train_type = 'грузовой'
+      train = TrainCargo.new(train_name)
+    end
+  rescue NameError
+    p 'Неправильно введен номер поезда!!!'
+    retry
   end
   station_add(train)
   p "Создан #{train_type} поезд № #{train_name}"

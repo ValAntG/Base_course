@@ -5,9 +5,18 @@ class Station
   def initialize(station_name)
     @name = station_name
     @station_trains = []
+    validate!
     register_instance
-  rescue StandardError => e
-    p "StandardError: #{e.message}"
+  end
+
+  def validate!
+    raise NameError, 'NameStationError' if @name !~ /\A[A-Z]{1}\w{2,}\z/
+  end
+
+  def valid?
+    return false if @name !~ /\A[A-Z]{1}\w{2,}\z/
+
+    true
   end
 
   def train_arrival(train)

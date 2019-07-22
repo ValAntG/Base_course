@@ -5,9 +5,7 @@ class Train
   include InstanceCounter
 
   def self.find(find_train_name)
-    object = nil
-    items.each { |train| object = train if train.name == find_train_name }
-    object
+    items[find_train_name]
   end
 
   def initialize(train_name)
@@ -16,7 +14,18 @@ class Train
     @train_speed = 0
     @train_route = nil
     @current_station = nil
+    validate!
     register_instance
+  end
+
+  def validate!
+    raise NameError, 'NameTrainError' if @name !~ /\A[a-zA-Z0-9]{3}(-| )[a-zA-Z0-9]{2}\z/
+  end
+
+  def valid?
+    return false if @name !~ /\A[a-zA-Z0-9]{3}(-|)[a-zA-Z0-9]{2}\z/
+
+    true
   end
 
   def speed_up(speed)
