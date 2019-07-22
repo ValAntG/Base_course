@@ -13,6 +13,7 @@ require './menu_create.rb'
 require './menu_edit_route.rb'
 require './menu_edit_train.rb'
 require './menu_info.rb'
+require './data.rb'
 
 def input_info
   p '   Выберите операцию какую хотите выполнить:'

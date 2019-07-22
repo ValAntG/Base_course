@@ -23,6 +23,7 @@ def train_editor
   p '     6 - показать скорость поезда'
   p '     7 - добавить поезд на станцию'
   p '     8 - добавить маршрут следования поезда'
+  p '     9 - добавить имя компании'
   p '     0 - для выхода в главное меню'
   train_editor_operation(train)
 end
@@ -42,6 +43,13 @@ def train_edit_speed_slow(train)
 
   train.speed_slow(speed)
   p "Поезд № #{train.name} уменьшил скорость на #{speed} км/ч"
+end
+
+def train_name(train)
+  p 'Введите имя компании или введите 0 чтобы посмотреть какой компании принадлежит поезд'
+  name_company = gets.chomp.to_s
+  train.company_name_save(name_company) if name_company != "0"
+  p "Поезд принадлежит компании #{train.company_name_show}"
 end
 
 def train_editor_operation(train)
@@ -67,6 +75,8 @@ def train_editor_operation(train)
     route = route_input
     station_start = station_input
     train.route_add(route, station_start)
+  when 9
+    train_name(train)
   end
   train_editor_operation(train) unless operation.zero?
 end

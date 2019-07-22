@@ -1,8 +1,8 @@
 class Train
-  attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
-
   include CompanyName
   include InstanceCounter
+
+  attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
 
   def self.find(find_train_name)
     items[find_train_name]
