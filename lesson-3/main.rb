@@ -1,4 +1,5 @@
 require 'pry'
+require 'colorize'
 require './company_name.rb'
 require './instance_counter.rb'
 require './station.rb'

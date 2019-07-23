@@ -4,7 +4,7 @@ def station_new
     name = gets.chomp
     Station.new(name)
   rescue NameError
-    p '!!!Неправильно введено имя станции!!!'
+    puts '!!!Неправильно введено имя станции!!!'.red
     retry
   end
   p "Создана станция #{name}"
@@ -27,7 +27,7 @@ def train_new
       train = TrainCargo.new(train_name)
     end
   rescue NameError
-    p '!!!Неправильно введен номер поезда!!!'
+    puts '!!!Неправильно введен номер поезда!!!'.red
     retry
   end
   station_add(train)
@@ -48,6 +48,6 @@ def route_new
   end
   Route.new(route_name, route_stations)
 rescue NameError
-  p '!!!Неправильно введено имя маршрута!!!'
+  puts '!!!Неправильно введено имя маршрута!!!'.red
   retry
 end
