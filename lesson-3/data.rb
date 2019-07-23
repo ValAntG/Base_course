@@ -1,0 +1,16 @@
+station1 = Station.new('Kharkov')
+station2 = Station.new('Poltava')
+station3 = Station.new('Mirgorod')
+station4 = Station.new('Darnica')
+station5 = Station.new('Kiev')
+
+route = Route.new('Stolishniy', [station1, station2, station3, station5])
+
+train1 = TrainPass.new('120-01')
+train1.route_add(route)
+train2 = TrainPass.new('240-01')
+train2.arrival(station1)
+train3 = TrainCargo.new('360-01')
+train3.arrival(station4)
+train4 = TrainPass.new('480-01')
+train4.arrival(station5)

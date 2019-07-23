@@ -1,13 +1,11 @@
 class Train
-  attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
-
   include CompanyName
   include InstanceCounter
 
+  attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
+
   def self.find(find_train_name)
-    object = nil
-    items.each { |train| object = train if train.name == find_train_name }
-    object
+    items[find_train_name]
   end
 
   def initialize(train_name)
@@ -16,21 +14,27 @@ class Train
     @train_speed = 0
     @train_route = nil
     @current_station = nil
+    validate!
     register_instance
   end
 
-  def speed
-    p "Скорость поезда №#{@name} #{@train_speed} км/ч"
+  def validate!
+    raise NameError, 'NameTrainError' if @name !~ /\A[a-zA-Z0-9]{3}(-| )[a-zA-Z0-9]{2}\z/
   end
 
-  def speed_up(speed = 20)
+  def valid?
+    return false if @name !~ /\A[a-zA-Z0-9]{3}(-|)[a-zA-Z0-9]{2}\z/
+
+    true
+  end
+
+  def speed_up(speed)
     @train_speed += speed
   end
 
-  def speed_slow(speed = 20)
-    return p 'Поезд остановлен, скорость уменьшить нельзя' if @train_speed.zero?
-
+  def speed_slow(speed)
     @train_speed -= speed
+    @train_speed = 0 if @train_speed.negative?
   end
 
   def carriages_number
