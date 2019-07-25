@@ -7,17 +7,17 @@ end
 
 def train_editor
   train = input(Hash(TrainCargo.items).merge(Hash(TrainPass.items)))
-  p "     Выберите операцию какую хотите выполнить с поездом #{train.name}:"
-  p '     1 - прицепить вагон'
-  p '     2 - отцепить вагон'
-  p '     3 - операция с вагоном'
-  p '     4 - увеличить скорость'
-  p '     5 - уменьшить скорость'
-  puts '      6 - информация по поезду'.yellow
-  p '     7 - добавить поезд на станцию'
-  p '     8 - добавить маршрут следования поезда'
-  p '     9 - добавить имя компании'
-  p '     0 - для выхода в главное меню'
+  puts "     Выберите операцию какую хотите выполнить с поездом #{train.name}:".colorize(:green).on_blue
+  puts '     1 - прицепить вагон                                             '.colorize(:white).on_green
+  puts '     2 - отцепить вагон                                              '.colorize(:white).on_green
+  puts '     3 - операция с вагоном                                          '.colorize(:white).on_green
+  puts '     4 - увеличить скорость                                          '.colorize(:white).on_green
+  puts '     5 - уменьшить скорость                                          '.colorize(:white).on_green
+  puts '     6 - информация по поезду                                        '.colorize(:yellow).on_green
+  puts '     7 - добавить поезд на станцию                                   '.colorize(:black).on_green
+  puts '     8 - добавить маршрут следования поезда                          '.colorize(:black).on_green
+  puts '     9 - добавить имя компании                                       '.colorize(:black).on_green
+  puts '     0 - для выхода в главное меню                                   '.colorize(:green).on_blue
   train_editor_operation(train)
 end
 
@@ -31,7 +31,7 @@ end
 def train_edit_speed_slow(train)
   print 'Введите скорость на которую хотите изменить скорость: '.light_blue
   speed = gets.chomp.to_i
-  return puts 'Поезд остановлен, скорость уменьшить нельзя'.red if train.train_speed.zero?
+  return puts 'Поезд остановлен, скорость уменьшить нельзя'.colorize(:white).on_red if train.train_speed.zero?
 
   train.speed_slow(speed)
   p "Поезд № #{train.name} уменьшил скорость на #{speed} км/ч"

@@ -7,10 +7,10 @@ end
 def carriage_editor(train)
   train_info(train)
   carriage = carriage_input(train)
-  puts '     Выберите операцию какую хотите выполнить с вагоном:'.light_blue
-  p '     1 - загрузить груз в вагон' if train.train_type == 'cargo'
-  p '     1 - посадить одного пассажира' if train.train_type == 'pass'
-  p '     0 - для выхода в главное меню'
+  puts '   Выберите операцию какую хотите выполнить с вагоном:'.colorize(:green).on_blue
+  puts '   1 - загрузить груз в вагон                         '.colorize(:white).on_green if train.train_type == 'cargo'
+  puts '   1 - посадить одного пассажира                      '.colorize(:white).on_green if train.train_type == 'pass'
+  puts '   0 - для выхода в главное меню                      '.colorize(:green).on_blue
   carriage_editor_operation(carriage)
 end
 
@@ -25,7 +25,7 @@ def carriage_take(carriage)
     carriage.take_space(quantity)
     puts "В вагоне свободного места - #{carriage.space_free}".yellow
   else
-    puts "В вагоне нет свободного места, осталось только #{carriage.space_free}".red
+    puts "В вагоне нет свободного места, осталось только #{carriage.space_free}".colorize(:white).on_red
     carriage_take(carriage) if carriage.carriage_type == 'cargo'
   end
 end
