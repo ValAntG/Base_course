@@ -1,6 +1,7 @@
 class Train
   include CompanyName
   include InstanceCounter
+  extend ObjectBlock
 
   attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
 
@@ -41,8 +42,8 @@ class Train
     @train_carriages.size
   end
 
-  def carriages_hook
-    return @train_carriages.push(Carriage.new(@train_type)) if @train_speed.zero?
+  def carriages_hook(space)
+    return @train_carriages.push(Carriage.new(@train_type, space)) if @train_speed.zero?
 
     p 'Поезд в движении, прицепить вагон нельзя'
   end

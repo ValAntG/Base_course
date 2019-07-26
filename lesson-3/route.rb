@@ -1,5 +1,6 @@
 class Route
   include InstanceCounter
+  extend ObjectBlock
 
   attr_reader :name, :route_stations
 

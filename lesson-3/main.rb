@@ -2,6 +2,7 @@ require 'pry'
 require 'colorize'
 require './company_name.rb'
 require './instance_counter.rb'
+require './object_block.rb'
 require './station.rb'
 require './route.rb'
 require './train.rb'
@@ -12,9 +13,16 @@ require './carriage_pass.rb'
 require './carriage_cargo.rb'
 require './menu_create.rb'
 require './menu_edit_route.rb'
+require './menu_edit_carriage.rb'
 require './menu_edit_train.rb'
 require './menu_info.rb'
 require './data.rb'
+
+def input(hash)
+  print "Выберите #{hash.keys}: ".light_blue
+  name = gets.chomp.to_sym until hash.key?(name)
+  hash[name]
+end
 
 def input_info
   p '   Выберите операцию какую хотите выполнить:'
@@ -24,7 +32,8 @@ def input_info
   p '   4 - операция с поездом'
   p '   5 - операция с маршрутом'
   p '   6 - показать информацию по поездам'
-  p '   7 - показать информацию по станциям'
+  p '   7 - показать информацию по станциям, групирование поездов по типам'
+  p '   8 - показать полную информацию по станциям'
   p '   0 - для выхода'
 end
 
@@ -43,9 +52,11 @@ loop do
   when 5
     route_editor
   when 6
-    train_info
+    trains_info
   when 7
     station_info
+  when 8
+    station_info_all
   when 0
     break
   end

@@ -1,5 +1,6 @@
 class Station
   include InstanceCounter
+  extend ObjectBlock
 
   attr_reader :name, :station_trains
 

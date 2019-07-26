@@ -28,20 +28,20 @@ describe Train do
 
   describe '#carriages_hook' do
     it 'should add carriage to train' do
-      expect { train63.carriages_hook }.to change { train63.instance_variable_get(:@train_carriages).size }
+      expect { train63.carriages_hook(10) }.to change { train63.instance_variable_get(:@train_carriages).size }
         .from(0).to(1)
     end
 
     it 'should not add carriage to the train while driving' do
-      train63.carriages_hook
+      train63.carriages_hook(10)
       train63.speed_up(30)
-      expect { train63.carriages_hook }.to change { train63.instance_variable_get(:@train_carriages).size }.by(0)
+      expect { train63.carriages_hook(10) }.to change { train63.instance_variable_get(:@train_carriages).size }.by(0)
     end
   end
 
   describe '#carriages_unhook' do
     it 'should remove the carriage from the train' do
-      train63.carriages_hook
+      train63.carriages_hook(10)
       expect { train63.carriages_unhook }.to change { train63.instance_variable_get(:@train_carriages).size }
         .from(1).to(0)
     end
@@ -52,7 +52,7 @@ describe Train do
     end
 
     it 'should not remove the carriage from the train while driving' do
-      train63.carriages_hook
+      train63.carriages_hook(10)
       train63.speed_up(30)
       expect { train63.carriages_unhook }.to change { train63.instance_variable_get(:@train_carriages).size }.by(0)
     end
