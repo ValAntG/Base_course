@@ -1,5 +1,7 @@
 class Train
   include CompanyName
+  include Validation
+  include Acessors
   include InstanceCounter
   extend ObjectBlock
 
@@ -17,16 +19,6 @@ class Train
     @current_station = nil
     validate!
     register_instance
-  end
-
-  def validate!
-    raise NameError, 'NameTrainError' if @name !~ /\A[a-zA-Z0-9]{3}(-| )[a-zA-Z0-9]{2}\z/
-  end
-
-  def valid?
-    return false if @name !~ /\A[a-zA-Z0-9]{3}(-|)[a-zA-Z0-9]{2}\z/
-
-    true
   end
 
   def speed_up(speed)

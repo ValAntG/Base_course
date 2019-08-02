@@ -1,24 +1,19 @@
 class Station
   include InstanceCounter
+  include Validation
+  include Acessors
   extend ObjectBlock
 
-  attr_reader :name, :station_trains
+  strong_attr_accessor :name, String
+  attr_accessor_with_history :station_trains
+
+  validate(:name, :format, '\A[A-Z]{1}\w{2,}\z')
 
   def initialize(station_name)
-    @name = station_name
+    self.name = station_name
     @station_trains = []
     validate!
     register_instance
-  end
-
-  def validate!
-    raise NameError, 'NameStationError' if @name !~ /\A[A-Z]{1}\w{2,}\z/
-  end
-
-  def valid?
-    return false if @name !~ /\A[A-Z]{1}\w{2,}\z/
-
-    true
   end
 
   def train_arrival(train)

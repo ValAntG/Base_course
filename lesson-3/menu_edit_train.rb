@@ -2,7 +2,7 @@ def station_add(train)
   print "Выберите станцию на которой размещается поезд #{Station.items.keys}".light_blue
   station_name = gets.chomp.to_sym until Station.items.key?(station_name)
   train.arrival(Station.items[station_name])
-  p "Поезд № #{train.name} прибыл на станцию #{@name}"
+  p "Поезд № #{train.name} прибыл на станцию #{station_name}"
 end
 
 def train_editor
