@@ -1,20 +1,6 @@
 module Acessors
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
-  end
-
-  module InstanceMethods
-    private
-
-    def history_add(method_name, new_value)
-      @history ||= {}
-      if @history == {}
-        @history.merge!(method_name => [new_value])
-      else
-        @history[method_name].push(new_value)
-      end
-    end
   end
 
   module ClassMethods
@@ -22,7 +8,10 @@ module Acessors
       methods_name.each do |method_name|
         reader(method_name)
         writer_with_history(method_name)
-        define_method("#{method_name}_history") { @history[method_name] }
+        define_method("#{method_name}_history") do
+          @history ||= {}
+          @history[method_name]
+        end
       end
     end
 
@@ -53,7 +42,12 @@ module Acessors
       inst_variable_name = "@#{method_name}".to_sym
       define_method("#{method_name}=") do |new_value|
         instance_variable_set(inst_variable_name, new_value)
-        history_add(method_name, new_value)
+        @history ||= {}
+        if @history.key?(method_name)
+          @history[method_name].push(new_value)
+        else
+          @history.merge!(method_name => [new_value])
+        end
       end
     end
   end

@@ -23,7 +23,7 @@ module Validation
       when :format
         raise NameError, "NameError #{key}" if variable !~ Regexp.new(value[1])
       when :type
-        raise NameError, "NameError #{key}" if variable.class != value[1] && variable.class != value[2]
+        raise NameError, "NameError #{key}" if value[1..value.size].none? { |a| a == variable.class }
       end
     end
 
