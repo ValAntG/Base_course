@@ -1,6 +1,9 @@
 class Train
   include CompanyName
+  include Validation
+  include Acessors
   include InstanceCounter
+  extend ObjectBlock
 
   attr_reader :name, :train_type, :current_station, :train_carriages, :train_speed
 
@@ -18,16 +21,6 @@ class Train
     register_instance
   end
 
-  def validate!
-    raise NameError, 'NameTrainError' if @name !~ /\A[a-zA-Z0-9]{3}(-| )[a-zA-Z0-9]{2}\z/
-  end
-
-  def valid?
-    return false if @name !~ /\A[a-zA-Z0-9]{3}(-|)[a-zA-Z0-9]{2}\z/
-
-    true
-  end
-
   def speed_up(speed)
     @train_speed += speed
   end
@@ -41,17 +34,17 @@ class Train
     @train_carriages.size
   end
 
-  def carriages_hook
-    return @train_carriages.push(Carriage.new(@train_type)) if @train_speed.zero?
+  def carriages_hook(space)
+    return @train_carriages.push(Carriage.new(@train_type, space)) if @train_speed.zero?
 
-    p 'Поезд в движении, прицепить вагон нельзя'
+    puts 'Поезд в движении, прицепить вагон нельзя'.colorize(:white).on_red
   end
 
   def carriages_unhook
-    return p 'Вагонов больше нет' if @train_speed.zero? && @train_carriages.size.zero?
+    return puts 'Вагонов больше нет'.colorize(:white).on_red if @train_speed.zero? && @train_carriages.size.zero?
     return @train_carriages.pop if @train_speed.zero?
 
-    p 'Поезд в движении, отцепить вагон нельзя'
+    puts 'Поезд в движении, отцепить вагон нельзя'.colorize(:white).on_red
   end
 
   def route_add(route, station_start = route.route_stations.first)
@@ -77,8 +70,6 @@ class Train
   end
 
   protected
-
-  # Методы не используются в других классах, но используются в подклассах
 
   def station_of_route(position_change)
     station_index = @train_route.route_stations.index(@current_station) + position_change
